@@ -15,15 +15,13 @@ import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { ImagesService } from './images.service';
 
+import { Image as ImageModel, Prisma } from '@prisma/client';
+
 @Controller('images')
 export class ImagesController {
   constructor(private readonly imagesService: ImagesService) {}
 
-  @Get(':filename')
-  seeUploadedFile(@Param('filename') image, @Res() res) {
-    return res.sendFile(image, { root: './uploads/images' });
-  }
-
+  // CREAR IMAGEN
   @Post()
   @UseInterceptors(
     FileInterceptor('file', {
@@ -46,5 +44,16 @@ export class ImagesController {
     @Body() createImageDto: { type: string },
   ) {
     return this.imagesService.create({ ...file, ...createImageDto });
+  }
+
+  @Get()
+  findAll(): Promise<ImageModel[]> {
+    return this.imagesService.findAll({});
+  }
+
+  // OBTENER IMAGEN POR NOMBRE DE ARCHIVO
+  @Get(':filename')
+  seeUploadedFile(@Param('filename') image, @Res() res) {
+    return res.sendFile(image, { root: './uploads/images' });
   }
 }
