@@ -26,18 +26,7 @@ import { UsersModule } from './users/users.module';
     TextsModule,
     UsersModule,
   ],
-  controllers: [
-    AppController,
-    ImagesController,
-    BooksController,
-    ChaptersController,
-  ],
-  providers: [
-    AppService,
-    PrismaService,
-    UsersService,
-    BooksService,
-    ChaptersService,
-  ],
+  controllers: [AppController],
+  providers: [AppService, PrismaService],
 })
 export class AppModule {}
