@@ -65,6 +65,11 @@ export class BooksService {
             url: true,
           },
         },
+        secondaryImage: {
+          select: {
+            url: true,
+          },
+        },
         genre: {
           select: {
             name: true,
