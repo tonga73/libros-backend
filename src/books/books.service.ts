@@ -71,6 +71,18 @@ export class BooksService {
             ageRange: true,
           },
         },
+        illustrator: {
+          select: {
+            name: true,
+            type: true,
+          },
+        },
+        publisher: {
+          select: {
+            name: true,
+            type: true,
+          },
+        },
       },
     });
   }
