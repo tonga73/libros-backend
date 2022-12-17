@@ -12,31 +12,34 @@ datasource db {
 }
 
 model User {
-  id      Int     @default(autoincrement()) @id
-  email   String  @unique
-  name    String?
-  type    String?
+  id                Int       @default(autoincrement()) @id
+  username          String
+  email             String    @unique
+  password          String
+  name              String?
+  type              String?
+
+  isVerified        Boolean   @default(false)
   
-  role    Role    @default(DEFAULT)
+  role              Role      @default(DEFAULT)
 
-  images  Image[]
+  images            Image[]
+  booksIllustrated  Book[]    @relation("IllustratorReferral")
+  booksPublished    Book[]    @relation("PublishedReferral")
 
-  booksIllustrated  Book[]  @relation("IllustratorReferral")
-
-  booksPublished    Book[]  @relation("PublishedReferral")
-
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
 }
 
 enum Role {
   DEFAULT
   COLLABORATOR
+  MODERATOR
   ADMIN
 }
 
 model Image {
-  id            Int     @default(autoincrement()) @id
+  id            Int       @default(autoincrement()) @id
   fieldname     String
   originalname  String
   encoding      String
@@ -46,47 +49,53 @@ model Image {
   path          String
   size          Int
 
+  url           String?
   type          String?
 
-  user          User?    @relation(fields: [userId], references: [id])
+  user          User?     @relation(fields: [userId], references: [id])
   userId        Int?
 
-  book          Book?    @relation(fields: [bookId], references: [id])
-  bookId        Int?
+  bookCover     Book?     @relation(fields: [bookCoverId], references: [id], name: "BookCoverReferral")
+  bookCoverId   Int?      @unique
 
-  chapter       Chapter? @relation(fields: [chapterId], references: [id])
+  bookImage     Book?     @relation(fields: [bookImageId], references: [id], name: "BookImageReferral")
+  bookImageId   Int?      @unique
+
+  chapter       Chapter?  @relation(fields: [chapterId], references: [id])
   chapterId     Int?
 
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 
 model Book {
-  id              Int      @default(autoincrement()) @id
+  id              Int       @default(autoincrement()) @id
   name            String
   description     String?
   type            String?
   publicationDate String?
 
-  published       Boolean? @default(false)
+  published       Boolean?  @default(false)
   
-  genre           Genre?   @relation(fields: [genreId], references: [id])
+  genre           Genre?    @relation(fields: [genreId], references: [id])
   genreId         Int?
 
-  images          Image[]
+  cover           Image?    @relation("BookCoverReferral")
 
-  illustrator     User?    @relation(fields: [illustratorId], references: [id], name: "IllustratorReferral")
+  secondaryImage  Image?    @relation("BookImageReferral")
+
+  illustrator     User?     @relation(fields: [illustratorId], references: [id], name: "IllustratorReferral")
   illustratorId   Int?
 
-  publisher       User?    @relation(fields: [publisherId], references: [id], name: "PublishedReferral")
+  publisher       User?     @relation(fields: [publisherId], references: [id], name: "PublishedReferral")
   publisherId     Int?
 
   chapters        Chapter[]
 }
 
 model Genre {
-  id        Int   @default(autoincrement()) @id
+  id        Int       @default(autoincrement()) @id
   name      String?
   ageRange  String?
 
@@ -103,7 +112,7 @@ model Chapter {
 
   images    Image[]
 
-  book      Book    @relation(fields: [bookId], references: [id])
+  book      Book      @relation(fields: [bookId], references: [id])
   bookId    Int
 }
 

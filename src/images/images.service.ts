@@ -8,6 +8,7 @@ export class ImagesService {
   constructor(private prisma: PrismaService) {}
 
   create(data: Prisma.ImageCreateInput): Promise<Image> {
+    data.url = 'images/' + data.filename;
     return this.prisma.image.create({
       data,
     });
@@ -28,6 +29,16 @@ export class ImagesService {
       cursor,
       where,
       orderBy,
+    });
+  }
+
+  async update(
+    id: number,
+    updateImageDto: { bookCoverId?: number; bookImageId?: number },
+  ): Promise<Image> {
+    return this.prisma.image.update({
+      data: updateImageDto,
+      where: { id },
     });
   }
 }

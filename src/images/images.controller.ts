@@ -4,7 +4,7 @@ import {
   Param,
   Post,
   Body,
-  Put,
+  Patch,
   Res,
   Delete,
   UseInterceptors,
@@ -46,6 +46,7 @@ export class ImagesController {
     return this.imagesService.create({ ...file, ...createImageDto });
   }
 
+  // OBTENER TODAS LAS IMAGENES
   @Get()
   findAll(): Promise<ImageModel[]> {
     return this.imagesService.findAll({});
@@ -55,5 +56,14 @@ export class ImagesController {
   @Get(':filename')
   seeUploadedFile(@Param('filename') image, @Res() res) {
     return res.sendFile(image, { root: './uploads/images' });
+  }
+
+  // EDITAR IMAGEN POR ID
+  @Patch(':id')
+  update(
+    @Param('id') id: string,
+    @Body() updateImageDto: { bookCoverId?: number; bookImageId?: number },
+  ) {
+    return this.imagesService.update(+id, updateImageDto);
   }
 }
