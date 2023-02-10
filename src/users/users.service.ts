@@ -35,6 +35,11 @@ export class UsersService {
   ): Promise<User | null> {
     return this.prisma.user.findUnique({
       where: userWhereUniqueInput,
+      include: {
+        images: true,
+        booksIllustrated: true,
+        booksPublished: true,
+      }
     });
   }
 
