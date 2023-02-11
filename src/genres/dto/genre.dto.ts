@@ -3,6 +3,18 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { Book } from '@prisma/client';
 
+export class UpdateGenreDto {
+  @ApiProperty({ example: 'Fantastico y Misterio' })
+  @IsString()
+  @IsOptional()
+  name: string;
+
+  @ApiProperty({ example: '+12' })
+  @IsString()
+  @IsOptional()
+  ageRange: string
+}
+
 export class Genre {
   @ApiProperty({ required: false })
   @IsOptional()
