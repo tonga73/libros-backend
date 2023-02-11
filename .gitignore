@@ -4,6 +4,7 @@
 
 # Environment variable
 .env
+.env.example
 
 # Logs
 logs
