@@ -8,16 +8,8 @@ export type BookSelect = {
   name: boolean;
   description: boolean;
   type: boolean;
-  cover: {
-    select: {
-      url: boolean;
-    };
-  };
-  secondaryImage: {
-    select: {
-      url: true;
-    };
-  };
+  cover: boolean;
+  secondaryImage: boolean;
   publicationDate: boolean;
   published: boolean;
   genreId: boolean;
@@ -60,16 +52,8 @@ export class BooksService {
     return this.prisma.book.findUnique({
       where: bookWhereUniqueInput,
       include: {
-        cover: {
-          select: {
-            url: true,
-          },
-        },
-        secondaryImage: {
-          select: {
-            url: true,
-          },
-        },
+        cover: true,
+        secondaryImage: true,
         genre: {
           select: {
             name: true,

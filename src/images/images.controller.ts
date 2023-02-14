@@ -17,6 +17,8 @@ import { ImagesService } from './images.service';
 
 import { Image as ImageModel, Prisma } from '@prisma/client';
 
+import { SharpPipe } from 'src/pipes/sharp.pipe';
+
 @Controller('images')
 export class ImagesController {
   constructor(private readonly imagesService: ImagesService) {}
@@ -24,26 +26,12 @@ export class ImagesController {
   // CREAR IMAGEN
   @Post()
   @UseInterceptors(
-    FileInterceptor('file', {
-      storage: diskStorage({
-        destination: 'uploads/images',
-        filename: (req, file, callback) => {
-          const uniqueSuffix =
-            Date.now() + '-' + Math.round(Math.random() * 1e9);
-
-          const ext = extname(file.originalname);
-          const filename = `${uniqueSuffix}${ext}`;
-
-          callback(null, filename);
-        },
-      }),
-    }),
+    FileInterceptor("image"),
   )
   handleUpload(
-    @UploadedFile() file: Express.Multer.File,
-    @Body() createImageDto: { type: string },
+    @UploadedFile(SharpPipe) image: string,
   ) {
-    return this.imagesService.create({ ...file, ...createImageDto });
+    return this.imagesService.create({filename: image, url: `/images/${image}`, type: image.split(/[-.]/)[2]});
   }
 
   // OBTENER TODAS LAS IMAGENES
@@ -65,5 +53,11 @@ export class ImagesController {
     @Body() updateImageDto: { bookCoverId?: number; bookImageId?: number },
   ) {
     return this.imagesService.update(+id, updateImageDto);
+  }
+
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.imagesService.remove({ id: Number(id) });
   }
 }

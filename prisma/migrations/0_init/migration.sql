@@ -9,6 +9,8 @@ CREATE TABLE "User" (
     "password" TEXT NOT NULL,
     "name" TEXT,
     "type" TEXT,
+    "profilePicture" TEXT,
+    "googleId" TEXT,
     "isVerified" BOOLEAN NOT NULL DEFAULT false,
     "role" "Role" NOT NULL DEFAULT 'DEFAULT',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -20,16 +22,9 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Image" (
     "id" SERIAL NOT NULL,
-    "fieldname" TEXT NOT NULL,
-    "originalname" TEXT NOT NULL,
-    "encoding" TEXT NOT NULL,
-    "mimetype" TEXT NOT NULL,
-    "destination" TEXT NOT NULL,
     "filename" TEXT NOT NULL,
-    "path" TEXT NOT NULL,
-    "size" INTEGER NOT NULL,
-    "url" TEXT,
-    "type" TEXT,
+    "url" TEXT NOT NULL,
+    "type" TEXT NOT NULL,
     "userId" INTEGER,
     "bookCoverId" INTEGER,
     "bookImageId" INTEGER,
@@ -121,3 +116,4 @@ ALTER TABLE "Chapter" ADD CONSTRAINT "Chapter_bookId_fkey" FOREIGN KEY ("bookId"
 
 -- AddForeignKey
 ALTER TABLE "Text" ADD CONSTRAINT "Text_chapterId_fkey" FOREIGN KEY ("chapterId") REFERENCES "Chapter"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
