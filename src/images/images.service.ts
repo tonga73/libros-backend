@@ -8,7 +8,7 @@ export class ImagesService {
   constructor(private prisma: PrismaService) {}
 
   create(data: Prisma.ImageCreateInput): Promise<Image> {
-    data.url = 'uploads/images/' + data.filename;
+    data.url = '/images/' + data.filename;
     return this.prisma.image.create({
       data,
     });
