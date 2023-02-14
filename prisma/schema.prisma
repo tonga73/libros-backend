@@ -42,18 +42,10 @@ enum Role {
 }
 
 model Image {
-  id           Int    @id @default(autoincrement())
-  fieldname    String
-  originalname String
-  encoding     String
-  mimetype     String
-  destination  String
-  filename     String
-  path         String
-  size         Int
-
-  url  String?
-  type String?
+  id       Int    @id @default(autoincrement())
+  filename String
+  url      String
+  type     String
 
   user   User? @relation(fields: [userId], references: [id])
   userId Int?

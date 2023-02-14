@@ -31,16 +31,8 @@ export class BooksController {
         name: true,
         description: true,
         type: true,
-        cover: {
-          select: {
-            url: true,
-          },
-        },
-        secondaryImage: {
-          select: {
-            url: true,
-          },
-        },
+        cover: true,
+        secondaryImage: true,
         publicationDate: false,
         published: false,
         genreId: false,
