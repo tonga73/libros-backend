@@ -29,7 +29,7 @@ export class ImagesController {
         destination: 'uploads/images',
         filename: (req, file, callback) => {
           const uniqueSuffix =
-            Date.now() + '-' + Math.round(Math.random() * 1e9);
+          file.originalname + Date.now();
 
           const ext = extname(file.originalname);
           const filename = `${uniqueSuffix}${ext}`;

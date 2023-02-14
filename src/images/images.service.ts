@@ -9,6 +9,7 @@ export class ImagesService {
 
   create(data: Prisma.ImageCreateInput): Promise<Image> {
     data.url = '/images/' + data.filename;
+    data.type = data.filename.split(/[-.]/)[1];
     return this.prisma.image.create({
       data,
     });
