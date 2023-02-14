@@ -12,12 +12,15 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  username String
-  email    String  @unique
-  password String
-  name     String?
-  type     String?
+  id             Int     @id @default(autoincrement())
+  username       String
+  email          String  @unique
+  password       String
+  name           String?
+  type           String?
+  profilePicture String?
+
+  googleId String?
 
   isVerified Boolean @default(false)
 
