@@ -19,8 +19,9 @@ export class ImagesService {
     cursor?: Prisma.ImageWhereUniqueInput;
     where?: Prisma.ImageWhereInput;
     orderBy?: Prisma.ImageOrderByWithRelationInput;
+    include?: Prisma.ImageInclude;
   }): Promise<Image[]> {
-    const { skip, take, cursor, where, orderBy } = params;
+    const { skip, take, cursor, where, orderBy, include } = params;
 
     return this.prisma.image.findMany({
       skip,
@@ -28,6 +29,19 @@ export class ImagesService {
       cursor,
       where,
       orderBy,
+      include,
+    });
+  }
+
+  async findOne(
+    imageWhereUniqueInput: Prisma.ImageWhereUniqueInput,
+  ): Promise<Image | null> {
+    return this.prisma.image.findUnique({
+      where: imageWhereUniqueInput,
+      include: {
+        bookCover: true,
+        bookImage: true,
+      },
     });
   }
 

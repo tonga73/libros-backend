@@ -25,22 +25,34 @@ export class ImagesController {
 
   // CREAR IMAGEN
   @Post()
-  @UseInterceptors(
-    FileInterceptor("image"),
-  )
-  handleUpload(
-    @UploadedFile(SharpPipe) image: string,
-  ) {
-    return this.imagesService.create({filename: image, url: `/images/${image}`, type: image.split(/[-.]/)[2]});
+  @UseInterceptors(FileInterceptor('image'))
+  handleUpload(@UploadedFile(SharpPipe) image: string) {
+    return this.imagesService.create({
+      filename: image,
+      url: `/images/${image}`,
+      type: image.split(/[-.]/)[2],
+    });
   }
 
   // OBTENER TODAS LAS IMAGENES
   @Get()
   findAll(): Promise<ImageModel[]> {
-    return this.imagesService.findAll({});
+    return this.imagesService.findAll({
+      include: {
+        bookCover: true,
+        bookImage: true,
+        user: true,
+      },
+    });
   }
 
   // OBTENER IMAGEN POR NOMBRE DE ARCHIVO
+  @Get('single/:id')
+  findOne(@Param('id') id: string) {
+    return this.imagesService.findOne({ id: Number(id) });
+  }
+
+  // VER IMAGINE
   @Get(':filename')
   seeUploadedFile(@Param('filename') image, @Res() res) {
     return res.sendFile(image, { root: './uploads/images' });
@@ -54,7 +66,6 @@ export class ImagesController {
   ) {
     return this.imagesService.update(+id, updateImageDto);
   }
-
 
   @Delete(':id')
   remove(@Param('id') id: string) {
