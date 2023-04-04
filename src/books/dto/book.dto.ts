@@ -31,6 +31,16 @@ export class CreateBookDto {
   @IsOptional()
   type: string;
 
+  @ApiProperty({ example: 'Fantasía épica' })
+  @IsString()
+  @IsOptional()
+  cover: string;
+
+  @ApiProperty({ example: 'Fantasía épica' })
+  @IsString()
+  @IsOptional()
+  secondaryImage: string;
+
   @ApiProperty({ example: '01/01/1950' })
   @IsString()
   @IsOptional()

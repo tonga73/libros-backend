@@ -52,8 +52,6 @@ export class BooksService {
     return this.prisma.book.findUnique({
       where: bookWhereUniqueInput,
       include: {
-        cover: true,
-        secondaryImage: true,
         genre: {
           select: {
             name: true,

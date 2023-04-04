@@ -50,15 +50,6 @@ model Image {
   user   User? @relation(fields: [userId], references: [id])
   userId Int?
 
-  bookCover   Book? @relation(fields: [bookCoverId], references: [id], name: "BookCoverReferral")
-  bookCoverId Int?  @unique
-
-  bookImage   Book? @relation(fields: [bookImageId], references: [id], name: "BookImageReferral")
-  bookImageId Int?  @unique
-
-  chapter   Chapter? @relation(fields: [chapterId], references: [id])
-  chapterId Int?
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -72,20 +63,19 @@ model Book {
 
   published Boolean? @default(false)
 
+  cover          String
+  secondaryImage String?
+
+  chapters Chapter[]
+
   genre   Genre? @relation(fields: [genreId], references: [id])
   genreId Int?
-
-  cover Image? @relation("BookCoverReferral")
-
-  secondaryImage Image? @relation("BookImageReferral")
 
   illustrator   User? @relation(fields: [illustratorId], references: [id], name: "IllustratorReferral")
   illustratorId Int?
 
   publisher   User? @relation(fields: [publisherId], references: [id], name: "PublishedReferral")
   publisherId Int?
-
-  chapters Chapter[]
 }
 
 model Genre {
@@ -102,12 +92,10 @@ model Chapter {
   type  String?
   order Int?
 
-  text Text[]
-
-  images Image[]
-
   book   Book @relation(fields: [bookId], references: [id])
   bookId Int
+
+  text Text[]
 }
 
 model Text {
@@ -115,6 +103,7 @@ model Text {
   content String
   name    String?
   type    String?
+  image   String?
 
   chapter   Chapter? @relation(fields: [chapterId], references: [id])
   chapterId Int?

@@ -39,8 +39,6 @@ export class ImagesController {
   findAll(): Promise<ImageModel[]> {
     return this.imagesService.findAll({
       include: {
-        bookCover: true,
-        bookImage: true,
         user: true,
       },
     });
@@ -56,15 +54,6 @@ export class ImagesController {
   @Get(':filename')
   seeUploadedFile(@Param('filename') image, @Res() res) {
     return res.sendFile(image, { root: './uploads/images' });
-  }
-
-  // EDITAR IMAGEN POR ID
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateImageDto: { bookCoverId?: number; bookImageId?: number },
-  ) {
-    return this.imagesService.update(+id, updateImageDto);
   }
 
   @Delete(':id')

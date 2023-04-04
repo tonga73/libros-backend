@@ -38,20 +38,6 @@ export class ImagesService {
   ): Promise<Image | null> {
     return this.prisma.image.findUnique({
       where: imageWhereUniqueInput,
-      include: {
-        bookCover: true,
-        bookImage: true,
-      },
-    });
-  }
-
-  async update(
-    id: number,
-    updateImageDto: { bookCoverId?: number; bookImageId?: number },
-  ): Promise<Image> {
-    return this.prisma.image.update({
-      data: updateImageDto,
-      where: { id },
     });
   }
 
