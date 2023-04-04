@@ -24,7 +24,6 @@ CREATE TABLE "Image" (
     "id" SERIAL NOT NULL,
     "filename" TEXT NOT NULL,
     "url" TEXT NOT NULL,
-    "type" TEXT NOT NULL,
     "userId" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,

@@ -27,10 +27,11 @@ export class ImagesController {
   @Post()
   @UseInterceptors(FileInterceptor('image'))
   handleUpload(@UploadedFile(SharpPipe) image: string) {
+    const url = `/images/${image}`;
+
     return this.imagesService.create({
       filename: image,
-      url: `/images/${image}`,
-      type: image.split(/[-.]/)[2],
+      url,
     });
   }
 

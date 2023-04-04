@@ -3,12 +3,12 @@ import path from 'path';
 import sharp from 'sharp';
 
 @Injectable()
-export class SharpPipe implements PipeTransform<Express.Multer.File, Promise<string>> {
-
+export class SharpPipe
+  implements PipeTransform<Express.Multer.File, Promise<string>>
+{
   async transform(image: Express.Multer.File): Promise<string> {
     const originalName = path.parse(image.originalname).name;
-    const filename = Date.now() + '-' + originalName + '.webp';
-
+    const filename = Date.now() + '_' + originalName + '.webp';
 
     await sharp(image.buffer)
       .resize(800)
@@ -17,5 +17,4 @@ export class SharpPipe implements PipeTransform<Express.Multer.File, Promise<str
 
     return filename;
   }
-
 }
