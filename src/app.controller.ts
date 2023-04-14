@@ -16,19 +16,17 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-
   @Get()
   async getBooks() {
-    return "MAIN PAGE"
+    return 'MAIN PAGE';
   }
-
 
   @Get('/users_enumdata')
   getRoles(): object {
     return {
       enums: {
-        roles: Role
-      }
+        roles: Role,
+      },
     };
   }
 }

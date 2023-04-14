@@ -52,6 +52,11 @@ export class BooksService {
     return this.prisma.book.findUnique({
       where: bookWhereUniqueInput,
       include: {
+        chapters: {
+          select: {
+            name: true,
+          },
+        },
         genre: {
           select: {
             name: true,
