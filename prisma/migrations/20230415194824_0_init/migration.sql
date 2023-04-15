@@ -63,7 +63,7 @@ CREATE TABLE "Chapter" (
     "name" TEXT NOT NULL,
     "type" TEXT,
     "order" INTEGER,
-    "bookId" INTEGER NOT NULL,
+    "bookId" INTEGER,
 
     CONSTRAINT "Chapter_pkey" PRIMARY KEY ("id")
 );
@@ -96,7 +96,7 @@ ALTER TABLE "Book" ADD CONSTRAINT "Book_illustratorId_fkey" FOREIGN KEY ("illust
 ALTER TABLE "Book" ADD CONSTRAINT "Book_publisherId_fkey" FOREIGN KEY ("publisherId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Chapter" ADD CONSTRAINT "Chapter_bookId_fkey" FOREIGN KEY ("bookId") REFERENCES "Book"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Chapter" ADD CONSTRAINT "Chapter_bookId_fkey" FOREIGN KEY ("bookId") REFERENCES "Book"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Text" ADD CONSTRAINT "Text_chapterId_fkey" FOREIGN KEY ("chapterId") REFERENCES "Chapter"("id") ON DELETE SET NULL ON UPDATE CASCADE;

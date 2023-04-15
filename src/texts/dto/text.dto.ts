@@ -9,8 +9,6 @@ import {
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Chapter as ChapterDto } from 'src/chapters/dto/chapter.dto';
-
 export class Text {
   @ApiProperty({ example: 1 })
   @IsInt()
@@ -32,10 +30,4 @@ export class Text {
   @IsString()
   @IsOptional()
   type: string;
-
-  @ApiProperty({ example: { id: 1, title: 'Capítulo 1' } })
-  @ValidateNested()
-  @Type(() => ChapterDto)
-  @IsOptional()
-  chapter: ChapterDto;
 }

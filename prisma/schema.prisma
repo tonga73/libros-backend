@@ -91,8 +91,8 @@ model Chapter {
   type  String?
   order Int?
 
-  book   Book @relation(fields: [bookId], references: [id])
-  bookId Int
+  book   Book? @relation(fields: [bookId], references: [id])
+  bookId Int?
 
   text Text[]
 }

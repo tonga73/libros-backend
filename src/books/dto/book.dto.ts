@@ -12,7 +12,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { User } from 'src/users/entities/user.entity';
 import { Image as ImageDto } from 'src/images/dto/image.dto';
 import { Genre as GenreDto } from 'src/genres/dto/genre.dto';
-import { Chapter as ChapterDto } from 'src/chapters/dto/chapter.dto';
 
 export class CreateBookDto {
   @ApiProperty({ example: 'Criaturas Celestes' })

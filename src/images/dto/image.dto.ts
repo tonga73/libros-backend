@@ -10,7 +10,6 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { User } from 'src/users/entities/user.entity';
 import { Book as BookDto } from 'src/books/dto/book.dto';
-import { Chapter as ChapterDto } from 'src/chapters/dto/chapter.dto';
 
 export class CreateImageDto {
   @ApiProperty({ example: 'image_field' })
@@ -63,12 +62,6 @@ export class CreateImageDto {
   @Type(() => BookDto)
   @IsOptional()
   book: BookDto;
-
-  @ApiProperty({ example: { id: 1, title: 'Capítulo 1' } })
-  @ValidateNested()
-  @Type(() => ChapterDto)
-  @IsOptional()
-  chapter: ChapterDto;
 }
 
 export class UpdateImageDto {
@@ -128,12 +121,6 @@ export class UpdateImageDto {
   @Type(() => BookDto)
   @IsOptional()
   book: BookDto;
-
-  @ApiProperty({ example: { id: 1, title: 'Capítulo 1' } })
-  @ValidateNested()
-  @Type(() => ChapterDto)
-  @IsOptional()
-  chapter: ChapterDto;
 }
 
 export class Image {
@@ -191,12 +178,6 @@ export class Image {
   @Type(() => BookDto)
   @IsOptional()
   book: BookDto;
-
-  @ApiProperty({ example: { id: 1, title: 'Capítulo 1' } })
-  @ValidateNested()
-  @Type(() => ChapterDto)
-  @IsOptional()
-  chapter: ChapterDto;
 
   @ApiProperty({ example: '2022-12-16T00:00:00.000Z' })
   @IsDate()

@@ -6,7 +6,7 @@ import { Chapter, Prisma } from '@prisma/client';
 export class ChaptersService {
   constructor(private prisma: PrismaService) {}
 
-  async chapter(
+  async findOne(
     chapterWhereUniqueInput: Prisma.ChapterWhereUniqueInput,
   ): Promise<Chapter | null> {
     return this.prisma.chapter.findUnique({
@@ -14,7 +14,7 @@ export class ChaptersService {
     });
   }
 
-  async chapters(params: {
+  async findAll(params: {
     skip?: number;
     take?: number;
     cursor?: Prisma.ChapterWhereUniqueInput;
@@ -31,13 +31,13 @@ export class ChaptersService {
     });
   }
 
-  async createChapter(data: Prisma.ChapterCreateInput): Promise<Chapter> {
+  async create(data: Prisma.ChapterCreateInput): Promise<Chapter> {
     return this.prisma.chapter.create({
       data,
     });
   }
 
-  async updateChapter(params: {
+  async update(params: {
     where: Prisma.ChapterWhereUniqueInput;
     data: Prisma.ChapterUpdateInput;
   }): Promise<Chapter> {
@@ -48,7 +48,7 @@ export class ChaptersService {
     });
   }
 
-  async deleteChapter(where: Prisma.ChapterWhereUniqueInput): Promise<Chapter> {
+  async delete(where: Prisma.ChapterWhereUniqueInput): Promise<Chapter> {
     return this.prisma.chapter.delete({
       where,
     });
