@@ -54,7 +54,10 @@ export class BooksService {
       include: {
         chapters: {
           select: {
+            id: true,
             name: true,
+            order: true,
+            type: true,
           },
         },
         genre: {
